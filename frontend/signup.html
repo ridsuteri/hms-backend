@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/doctorlist.html">Doctors</a>
+                <a href="/bookingappointment.html">Book</a>
+                <a href="/signin.html">Sign in</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page narrow">
+        <section class="panel">
+            <span class="eyebrow">Patient access</span>
+            <h1>Create your account</h1>
+            <p class="helper">A simple sign-up flow connected to the current auth endpoint.</p>
+
+            <form id="signupForm" class="form">
+                <div class="field">
+                    <label for="signupName">Full name</label>
+                    <input id="signupName" name="name" type="text" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="field">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" name="email" type="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="field">
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" name="password" type="password" placeholder="Create a password" required>
+                </div>
+
+                <div class="field">
+                    <label for="signupConfirmPassword">Confirm password</label>
+                    <input id="signupConfirmPassword" name="confirmPassword" type="password" placeholder="Re-enter the password" required>
+                </div>
+
+                <button class="button" type="submit">Create account</button>
+            </form>
+
+            <div id="message" class="message" hidden></div>
+
+            <p class="footer-note">
+                Already have an account? <a href="/signin.html">Sign in</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>

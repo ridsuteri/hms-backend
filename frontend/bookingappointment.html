@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/doctorlist.html">Doctors</a>
+                <a class="active" href="/bookingappointment.html">Book</a>
+                <a href="/dashboard.html">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page">
+        <section class="panel">
+            <span class="eyebrow">Appointment request</span>
+            <h1>Book an appointment</h1>
+            <p class="helper">This form sends a new appointment request to the appointment endpoint.</p>
+
+            <form id="appointmentForm" class="form">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="name">Full name</label>
+                        <input id="name" type="text" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone number</label>
+                        <input id="phone" type="tel" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="dob">Date of birth</label>
+                        <input id="dob" type="date" required>
+                    </div>
+
+                    <div class="field full">
+                        <label for="doctorSelect">Doctor</label>
+                        <select id="doctorSelect" required>
+                            <option value="">Loading doctors...</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="address">Address</label>
+                        <textarea id="address" required placeholder="Enter your address"></textarea>
+                    </div>
+
+                    <div class="field full">
+                        <label for="visitReason">Reason for visit</label>
+                        <textarea id="visitReason" required placeholder="Briefly describe the reason for your appointment"></textarea>
+                    </div>
+                </div>
+
+                <button class="button" type="submit">Submit request</button>
+            </form>
+
+            <div id="message" class="message" hidden></div>
+        </section>
+    </main>
+</body>
+</html>

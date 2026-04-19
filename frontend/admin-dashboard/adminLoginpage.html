@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/admin-dashboard">Admin area</a>
+            <nav class="nav">
+                <a href="/">Patient home</a>
+                <a class="active" href="/admin-dashboard">Admin login</a>
+                <a href="/admin-dashboard/adminRegisterpage.html">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page narrow">
+        <section class="panel">
+            <span class="eyebrow">Admin access</span>
+            <h1>OTP login</h1>
+            <p class="helper">Request a one-time code and then verify it to open the admin dashboard.</p>
+
+            <form id="adminLoginForm" class="form">
+                <div class="field">
+                    <label for="email">Admin email</label>
+                    <div class="inline-input">
+                        <input id="email" type="email" placeholder="Enter admin email" required>
+                        <button id="requestOtpButton" class="button-secondary" type="button">Request OTP</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="loginCode">OTP code</label>
+                    <input id="loginCode" type="text" placeholder="Enter the OTP" disabled required>
+                </div>
+
+                <button id="verifyButton" class="button" type="submit" disabled>Verify and continue</button>
+            </form>
+
+            <div id="message" class="message" hidden></div>
+
+            <p class="footer-note">
+                Need to create an admin first? <a href="/admin-dashboard/adminRegisterpage.html">Register here</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>

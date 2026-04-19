@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a class="active" href="/doctorlist.html">Doctors</a>
+                <a href="/bookingappointment.html">Book</a>
+                <a href="/dashboard.html">Dashboard</a>
+                <a href="/admin-dashboard/admindashboard.html">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page">
+        <section class="page-header">
+            <div>
+                <span class="eyebrow">Doctor directory</span>
+                <h1>Available doctors</h1>
+                <p class="helper">This list is loaded directly from the doctor management endpoint.</p>
+            </div>
+            <div class="actions">
+                <a class="button" href="/bookingappointment.html">Book appointment</a>
+            </div>
+        </section>
+
+        <div id="message" class="message" hidden></div>
+        <section class="panel">
+            <div class="section-header">
+                <h2 id="doctorCount">Loading doctors...</h2>
+            </div>
+            <div id="doctorList" class="list-stack"></div>
+        </section>
+    </main>
+</body>
+</html>

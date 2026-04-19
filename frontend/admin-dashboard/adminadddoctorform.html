@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Doctor</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/admin-dashboard/admindashboard.html">Admin dashboard</a>
+            <nav class="nav">
+                <a href="/admin-dashboard/admindashboard.html">Doctors</a>
+                <a href="/admin-dashboard/allBookingpage.html">Bookings</a>
+                <a class="active" href="/admin-dashboard/adminadddoctorform.html">Add doctor</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page">
+        <section class="panel">
+            <span class="eyebrow">Doctor creation</span>
+            <h1>Add a doctor</h1>
+            <p class="helper">This form writes directly to the doctor management endpoint.</p>
+
+            <form id="doctorForm" class="form">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="specialty">Specialty</label>
+                        <input id="specialty" type="text" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phonenumber">Phone number</label>
+                        <input id="phonenumber" type="tel" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="dateOfBirth">Date of birth</label>
+                        <input id="dateOfBirth" type="date" required>
+                    </div>
+
+                    <div class="field full">
+                        <label for="address">Address</label>
+                        <input id="address" type="text" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="availability">Availability</label>
+                        <input id="availability" type="text" placeholder="Example: Mon-Fri, 10 AM - 4 PM" required>
+                    </div>
+
+                    <div class="field full">
+                        <label for="degree">Degree</label>
+                        <input id="degree" type="text" required>
+                    </div>
+                </div>
+
+                <button class="button" type="submit">Save doctor</button>
+            </form>
+
+            <div id="message" class="message" hidden></div>
+        </section>
+    </main>
+</body>
+</html>

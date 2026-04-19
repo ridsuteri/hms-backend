@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/doctorlist.html">Doctors</a>
+                <a href="/bookingappointment.html">Book</a>
+                <a href="/signup.html">Create account</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page narrow">
+        <section class="panel">
+            <span class="eyebrow">Patient access</span>
+            <h1>Sign in</h1>
+            <p class="helper">This page stores the returned JWT locally and uses it on the lightweight account screens.</p>
+
+            <form id="signinForm" class="form">
+                <div class="field">
+                    <label for="signinEmail">Email</label>
+                    <input id="signinEmail" name="email" type="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="field">
+                    <label for="signinPassword">Password</label>
+                    <input id="signinPassword" name="password" type="password" placeholder="Enter your password" required>
+                </div>
+
+                <button class="button" type="submit">Sign in</button>
+            </form>
+
+            <div id="message" class="message" hidden></div>
+
+            <p class="footer-note">
+                Need an account? <a href="/signup.html">Create one here</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>

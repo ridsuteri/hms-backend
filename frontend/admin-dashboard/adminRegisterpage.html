@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Register</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/admin-dashboard">Admin area</a>
+            <nav class="nav">
+                <a href="/">Patient home</a>
+                <a href="/admin-dashboard">Admin login</a>
+                <a class="active" href="/admin-dashboard/adminRegisterpage.html">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page narrow">
+        <section class="panel">
+            <span class="eyebrow">Admin setup</span>
+            <h1>Create admin access</h1>
+            <p class="helper">Register a name and email, then use the OTP login screen to enter the admin dashboard.</p>
+
+            <form id="adminSignupForm" class="form">
+                <div class="field">
+                    <label for="name">Full name</label>
+                    <input id="name" type="text" placeholder="Enter the admin name" required>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="Enter the admin email" required>
+                </div>
+
+                <button class="button" type="submit">Register admin</button>
+            </form>
+
+            <div id="message" class="message" hidden></div>
+
+            <p class="footer-note">
+                Already registered? <a href="/admin-dashboard">Go to login</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>

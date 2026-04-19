@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/doctorlist.html">Doctors</a>
+                <a href="/bookingappointment.html">Book</a>
+                <a href="/dashboard.html">Dashboard</a>
+                <a class="active" href="/profile.html">Account</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page">
+        <section class="page-header">
+            <div>
+                <span class="eyebrow">Account view</span>
+                <h1>Stored account details</h1>
+                <p class="helper">
+                    The backend in this repository does not expose a dedicated profile read or update endpoint,
+                    so this page shows the authenticated session data that is actually available.
+                </p>
+            </div>
+            <div class="actions">
+                <a class="button-secondary" href="/dashboard.html">Back to dashboard</a>
+                <button id="signoutButton" class="button-ghost" type="button">Sign out</button>
+            </div>
+        </section>
+
+        <div id="message" class="message" hidden></div>
+
+        <section class="content-grid">
+            <article class="panel">
+                <h2>Current session</h2>
+                <div id="accountInfo" class="info-pair"></div>
+            </article>
+
+            <article class="panel">
+                <h2>What you can do next</h2>
+                <ul class="key-points">
+                    <li>View doctors currently stored by the admin flow.</li>
+                    <li>Submit a new appointment request.</li>
+                    <li>Sign in again to refresh your session if the token expires.</li>
+                </ul>
+                <div class="actions">
+                    <a class="button" href="/doctorlist.html">View doctors</a>
+                    <a class="button-secondary" href="/bookingappointment.html">Book appointment</a>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

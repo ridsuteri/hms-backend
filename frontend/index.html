@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Management System</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a class="active" href="/">Home</a>
+                <a href="./doctorlist.html">Doctors</a>
+                <a href="./bookingappointment.html">Book</a>
+                <a href="./dashboard.html">Dashboard</a>
+                <a href="./profile.html">Account</a>
+                <a href="./signin.html">Sign in</a>
+                <a href="./admin-dashboard">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Simple patient flow</span>
+                <h1>Book appointments without the clutter.</h1>
+                <p class="helper">
+                    This frontend now stays focused on the real features available in the repository:
+                    user authentication, doctor listing, appointment booking, and admin review.
+                </p>
+                <div class="actions">
+                    <a class="button" href="/doctorlist.html">View doctors</a>
+                    <a class="button-secondary" href="/bookingappointment.html">Book appointment</a>
+                </div>
+            </div>
+
+            <aside class="panel compact">
+                <h2>What is available</h2>
+                <ul class="key-points">
+                    <li>Patient sign up and sign in</li>
+                    <li>Doctor list from the backend database</li>
+                    <li>Appointment booking with doctor selection</li>
+                    <li>Admin OTP login and booking review</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section class="content-grid">
+            <article class="panel">
+                <h2>How the current app works</h2>
+                <ol class="clean-list">
+                    <li>Create a patient account or sign in.</li>
+                    <li>Review the available doctors.</li>
+                    <li>Submit an appointment request.</li>
+                    <li>Admins review requests and update the status.</li>
+                </ol>
+            </article>
+
+            <article class="panel">
+                <h2>Admin area</h2>
+                <p class="helper">
+                    Admins can register, request an OTP, add doctors, and update appointment status
+                    from the lightweight dashboard.
+                </p>
+                <div class="actions">
+                    <a class="button-ghost" href="/admin-dashboard">Open admin area</a>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="/app.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="shell topbar-inner">
+            <a class="brand" href="/">Healthcare HMS</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/doctorlist.html">Doctors</a>
+                <a href="/bookingappointment.html">Book</a>
+                <a class="active" href="/dashboard.html">Dashboard</a>
+                <a href="/profile.html">Account</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell page">
+        <section class="page-header">
+            <div>
+                <span class="eyebrow">Signed-in view</span>
+                <h1>Patient dashboard</h1>
+                <p class="helper">Only real backend-backed information is shown here now.</p>
+            </div>
+            <div class="actions">
+                <a class="button-secondary" href="/bookingappointment.html">New appointment</a>
+                <button id="logoutButton" class="button-ghost" type="button">Sign out</button>
+            </div>
+        </section>
+
+        <div id="message" class="message" hidden></div>
+
+        <section class="content-grid">
+            <article class="panel">
+                <h2>Session details</h2>
+                <div class="info-pair" id="sessionInfo"></div>
+            </article>
+
+            <article class="panel">
+                <h2>Quick actions</h2>
+                <ul class="key-points">
+                    <li>Review the live doctor list.</li>
+                    <li>Submit a new appointment request.</li>
+                    <li>Use the account page for stored session information.</li>
+                </ul>
+                <div class="actions">
+                    <a class="button" href="/doctorlist.html">Browse doctors</a>
+                    <a class="button-secondary" href="/profile.html">Open account page</a>
+                </div>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="section-header">
+                <h2>System snapshot</h2>
+                <p class="helper">Counts are pulled from the current doctor and appointment endpoints.</p>
+            </div>
+            <div class="metrics">
+                <div class="metric">
+                    <span class="helper">Doctors available</span>
+                    <strong id="doctorCount">-</strong>
+                </div>
+                <div class="metric">
+                    <span class="helper">Appointments in system</span>
+                    <strong id="appointmentCount">-</strong>
+                </div>
+                <div class="metric">
+                    <span class="helper">Auth status</span>
+                    <strong id="authState">-</strong>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
