@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <script defer src="/app.js"></script>
 </head>
-<body>
+<body data-page="profile">
     <header class="topbar">
         <div class="shell topbar-inner">
             <a class="brand" href="/">Healthcare HMS</a>
@@ -27,8 +27,7 @@
                 <span class="eyebrow">Account view</span>
                 <h1>Stored account details</h1>
                 <p class="helper">
-                    The backend in this repository does not expose a dedicated profile read or update endpoint,
-                    so this page shows the authenticated session data that is actually available.
+                    This page now reads your saved account details from the backend and shows your latest appointment activity.
                 </p>
             </div>
             <div class="actions">
@@ -46,16 +45,8 @@
             </article>
 
             <article class="panel">
-                <h2>What you can do next</h2>
-                <ul class="key-points">
-                    <li>View doctors currently stored by the admin flow.</li>
-                    <li>Submit a new appointment request.</li>
-                    <li>Sign in again to refresh your session if the token expires.</li>
-                </ul>
-                <div class="actions">
-                    <a class="button" href="/doctorlist.html">View doctors</a>
-                    <a class="button-secondary" href="/bookingappointment.html">Book appointment</a>
-                </div>
+                <h2>Recent appointments</h2>
+                <div id="appointmentSummary" class="list-stack"></div>
             </article>
         </section>
     </main>

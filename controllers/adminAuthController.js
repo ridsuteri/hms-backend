@@ -1,6 +1,5 @@
 const AdminAuth = require("../models/adminAuthModel");
 const sgMail = require("../config/email");
-const {emailConstants} = require('../constants/email');
 
 exports.signup = async (req, res) => {
   try {
@@ -33,7 +32,7 @@ exports.login = async (req, res) => {
     // save that otp in adminAuth with expiry
 
     const msg = {
-        from: emailConstants.from,
+        from: process.env.SENDGRID_API_FROM,
         to: email,
         subject: `Login OTP for ${email} on Cn-Hms`,
         text: ``

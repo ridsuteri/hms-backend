@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <script defer src="/app.js"></script>
 </head>
-<body>
+<body data-page="dashboard">
     <header class="topbar">
         <div class="shell topbar-inner">
             <a class="brand" href="/">Healthcare HMS</a>
@@ -59,7 +59,7 @@
         <section class="panel">
             <div class="section-header">
                 <h2>System snapshot</h2>
-                <p class="helper">Counts are pulled from the current doctor and appointment endpoints.</p>
+                <p class="helper">Counts are pulled from the live doctor list and your signed-in appointment history.</p>
             </div>
             <div class="metrics">
                 <div class="metric">
@@ -67,7 +67,7 @@
                     <strong id="doctorCount">-</strong>
                 </div>
                 <div class="metric">
-                    <span class="helper">Appointments in system</span>
+                    <span class="helper">Your appointments</span>
                     <strong id="appointmentCount">-</strong>
                 </div>
                 <div class="metric">
