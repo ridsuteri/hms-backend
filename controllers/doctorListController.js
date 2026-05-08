@@ -21,6 +21,20 @@ function sanitizeDoctor(doctor) {
     updatedAt: doctor.updatedAt,
   };
 }
+function sanitizeDoctorPayload(body = {}) {
+  return {
+    name: String(body.name || "").trim(),
+    specialty: String(body.specialty || "").trim(),
+    phonenumber: String(body.phonenumber || "").trim(),
+    dateOfBirth: body.dateOfBirth,
+    address: String(body.address || "").trim(),
+    email: String(body.email || "")
+      .trim()
+      .toLowerCase(),
+    availability: String(body.availability || "").trim(),
+    degree: String(body.degree || "").trim(),
+  };
+}
 
 const createDoctor = async (req, res) => {
   try {
@@ -75,6 +89,55 @@ const createDoctor = async (req, res) => {
   }
 };
 
-const getAllDoctors = (req, res) => {};
+const getAllDoctors = async (req, res) => {
+  try {
+    const doctors = await DoctorList.find();
+    res.status(200).json({ data: doctors });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-module.exports = { createDoctor, getAllDoctors };
+const getDoctorById = async (req, res) => {
+  try {
+    const doctor = await DoctorList.findById(req.params.id);
+    if (!doctor) return res.status(404).json({ error: "Doctor not found" });
+    res.status(200).json({ data: doctor });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateDoctor = async (req, res) => {
+  try {
+    const payload = sanitizeDoctorPayload(req.body);
+    const doctor = await DoctorList.findByIdAndUpdate(req.params.id, payload, {
+      new: true,
+      runValidators: true,
+    });
+    if (!doctor) return res.status(404).json({ error: "Doctor not found" });
+    res
+      .status(200)
+      .json({ message: "Doctor updated successfully", data: doctor });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const deleteDoctor = async (req, res) => {
+  try {
+    const doctor = await DoctorList.findByIdAndDelete(req.params.id);
+    if (!doctor) return res.status(404).json({ error: "Doctor not found" });
+    res.status(200).json({ message: "Doctor deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  createDoctor,
+  getAllDoctors,
+  getDoctorById,
+  updateDoctor,
+  deleteDoctor,
+};

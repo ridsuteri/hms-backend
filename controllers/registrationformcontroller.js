@@ -1,72 +1,131 @@
-const RegistrationForm = require('../models/registrationformModel');
+const mongoose = require("mongoose");
+const RegistrationForm = require("../models/registrationformModel");
+const DoctorList = require("../models/doctorlistModel");
 
-function normalizeEmail(email) {
-  return String(email || "")
-    .trim()
-    .toLowerCase();
-}
-
-function sanitizeAppointment(appointment) {
+function sanitizeAppointmentPayload(body = {}) {
   return {
-    id: appointment._id,
-    name: appointment.name,
-    email: appointment.email,
-    doctorName: appointment.doctorName,
-    createdAt: appointment.createdAt,
-    updatedAt: appointment.updatedAt,
+    name: String(body.name || "").trim(),
+    email: String(body.email || "")
+      .trim()
+      .toLowerCase(),
+    phonenumber: String(body.phonenumber || "").trim(),
+    dateOfBirth: Date(body.dateOfBirth),
+    address: String(body.address || "").trim(),
+    description: String(body.description || "").trim(),
+    doctorId: String(body.doctorId || "").trim(),
   };
 }
 
 const createAppointment = async (req, res) => {
   try {
-    const email = normalizeEmail(req.body.email);
-    const name = String(req.body.name || "").trim();
-    const phonenumber = String(req.body.phonenumber || "").trim();
-    const dateOfBirth = Date(req.body.dateOfBirth || "").trim();
-    const address = String(req.body.address || "").trim();
-    const description = String(req.body.description || "").trim();
-    const doctorId = String(req.body.doctorId || "").trim();
-    const doctorName = String(req.body.doctorName || "").trim();
-    const userId = String(req.body.userId || "").trim();
+    const payload = sanitizeAppointmentPayload(req.body);
 
-    if (
-      !name ||
-      !email ||
-      !description ||
-      !phonenumber ||
-      !dateOfBirth ||
-      !address ||
-      !doctorId ||
-      !doctorName ||
-      !userId
-    ) {
+    if (Object.values(payload).some((value) => !value)) {
       return res
         .status(400)
-        .json({ error: "Please fill all the mandatory fields" });
+        .json({ error: "All appointment fields are required" });
     }
 
+    if (!mongoose.Types.ObjectId.isValid(payload.doctorId)) {
+      return res.status(400).json({ error: "Invalid doctor ID" });
+    }
 
-    const appointment = new RegistrationForm({
-      email,
-      name,
-      description,
-      phonenumber,
-      dateOfBirth,
-      address,
-      doctorId,
-      doctorName,
-      userId
-    });
+    const doctor = await DoctorList.findById(payload.doctorId).select("name");
+    if (!doctor) {
+      return res.status(404).json({ error: "Doctor not found" });
+    }
 
-    await appointment.save();
-    res.status(201).json({
-      message: "Appointment created successfully",
-      data: { appointment: sanitizeAppointment(appointment) },
+    const newAppointment = new RegistrationForm({
+      ...payload,
+      doctorId: doctor._id,
+      doctorName: doctor.name,
+      userId: req.body.userId || null,
     });
+    await newAppointment.save();
+    res
+      .status(201)
+      .json({
+        message: "Appointment created successfully!",
+        data: newAppointment,
+      });
   } catch (error) {
-    console.error("Error creating Appointment:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(400).json({ error: error.message });
+  }
+};
+const getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await RegistrationForm.find()
+      .populate("doctorId", "name specialty")
+      .sort({ createdAt: -1 });
+    res.status(200).json({ data: appointments });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = {createAppointment};
+const getMyAppointments = async (req, res) => {
+  try {
+    const appointments = await RegistrationForm.find({
+      $or: [{ userId: req.user.userId }, { email: req.user.email }],
+    })
+      .populate("doctorId", "name specialty")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ data: appointments });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getAppointmentById = async (req, res) => {
+  try {
+    const appointment = await RegistrationForm.findById(req.params.id).populate(
+      "doctorId",
+      "name specialty"
+    );
+    if (!appointment)
+      return res.status(404).json({ error: "Appointment not found" });
+    res.status(200).json({ data: appointment });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateAppointment = async (req, res) => {
+  try {
+    const updatedAppointment = await RegistrationForm.findByIdAndUpdate(
+      req.params.id,
+      { status: req.body.status },
+      { new: true, runValidators: true }
+    );
+    if (!updatedAppointment)
+      return res.status(404).json({ error: "Appointment not found" });
+    res.status(200).json({
+      message: "Appointment status updated successfully!",
+      data: updatedAppointment,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const deleteAppointment = async (req, res) => {
+  try {
+    const appointment = await RegistrationForm.findByIdAndDelete(req.params.id);
+    if (!appointment)
+      return res.status(404).json({ error: "Appointment not found" });
+    res.status(200).json({ message: "Appointment deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  createAppointment,
+  getAllAppointments,
+  getMyAppointments,
+  getAppointmentById,
+  getAppointmentById,
+  updateAppointment,
+  deleteAppointment,
+};
