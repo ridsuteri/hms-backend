@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const connectToDb = require("./config/db");
-const { connectToRedis } = require("./config/redis");
+
 const adminauthRoutes = require("./routes/adminAuthRoutes");
 const authRoutes = require("./routes/authRoutes");
 const formRoutes = require("./routes/registrationformRoutes");
@@ -16,7 +16,7 @@ const frontendDir = path.join(__dirname, "frontend");
 const adminDashboardDir = path.join(frontendDir, "admin-dashboard");
 
 connectToDb();
-connectToRedis();
+
 
 app.use(express.json());
 app.use(express.static(frontendDir));
