@@ -55,7 +55,7 @@ const App = {
         },
 
         signinUser(payload) {
-            return App.request("/api/auth/signin", { method: "POST", json: payload });
+            return App.request("/api/auth/login", { method: "POST", json: payload });
         },
 
         currentUser() {
@@ -451,8 +451,9 @@ const App = {
         selectElement.innerHTML = [
             '<option value="">Select a doctor</option>',
             ...doctors.map((doctor) => {
+                const doctorId = doctor._id || doctor.id;
                 const selected = selectedDoctor === doctor.name ? "selected" : "";
-                return `<option value="${this.escapeHtml(doctor.name)}" ${selected}>${this.escapeHtml(doctor.name)}${doctor.specialty ? ` - ${this.escapeHtml(doctor.specialty)}` : ""}</option>`;
+                return `<option value="${this.escapeHtml(doctorId)}" ${selected}>${this.escapeHtml(doctor.name)}${doctor.specialty ? ` - ${this.escapeHtml(doctor.specialty)}` : ""}</option>`;
             })
         ].join("");
 
@@ -562,6 +563,13 @@ const App = {
             App.api.listDoctors().then((data) => {
                 const doctors = data.data || [];
                 doctorCount.textContent = `${doctors.length} doctor${doctors.length === 1 ? "" : "s"} available`;
+                App.setMessage(
+                    message,
+                    data.meta?.source === "cache"
+                        ? "Doctor list loaded from Redis cache."
+                        : "Doctor list loaded from MongoDB.",
+                    "info"
+                );
 
                 if (!doctors.length) {
                     doctorList.innerHTML = '<div class="empty-state">No doctors have been added yet.</div>';
@@ -626,7 +634,7 @@ const App = {
                         phonenumber: document.getElementById("phone").value.trim(),
                         dateOfBirth: document.getElementById("dob").value,
                         address: document.getElementById("address").value.trim(),
-                        doctorname: doctorSelect.value,
+                        doctorId: doctorSelect.value,
                         description: document.getElementById("visitReason").value.trim()
                     });
 
@@ -683,7 +691,7 @@ const App = {
                     <article class="list-card">
                         <div class="list-card-header">
                             <div>
-                                <h3>${App.escapeHtml(appointment.doctorname || "Doctor")}</h3>
+                                <h3>${App.escapeHtml(appointment.doctorName || appointment.doctorname || "Doctor")}</h3>
                                 <p class="helper">${App.formatDateTime(appointment.createdAt)}</p>
                             </div>
                             <span class="badge ${App.getStatusClass(appointment.status)}">${App.escapeHtml(appointment.status || "Pending")}</span>
@@ -808,7 +816,7 @@ const App = {
                             <td>${App.escapeHtml(doctor.availability || "-")}</td>
                             <td>${App.escapeHtml(doctor.phonenumber || "-")}</td>
                             <td>${App.escapeHtml(doctor.email || "-")}</td>
-                            <td><button class="button-small reject" type="button" data-doctor-delete="${doctor._id}">Delete</button></td>
+                            <td><button class="button-small reject" type="button" data-doctor-delete="${doctor._id || doctor.id}">Delete</button></td>
                         </tr>
                     `).join("");
                 } catch (error) {
@@ -931,7 +939,7 @@ const App = {
                                 </div>
                                 <span class="badge ${App.getStatusClass(booking.status)}">${App.escapeHtml(booking.status || "Pending")}</span>
                             </div>
-                            <p><strong>Doctor:</strong> ${App.escapeHtml(booking.doctorname || "-")}</p>
+                            <p><strong>Doctor:</strong> ${App.escapeHtml(booking.doctorName || booking.doctorname || "-")}</p>
                             <p><strong>Date of birth:</strong> ${App.formatDate(booking.dateOfBirth)}</p>
                             <p><strong>Address:</strong> ${App.escapeHtml(booking.address || "-")}</p>
                             <p><strong>Reason:</strong> ${App.escapeHtml(booking.description || "-")}</p>

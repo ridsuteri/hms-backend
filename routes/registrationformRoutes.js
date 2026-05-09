@@ -11,7 +11,7 @@ const { isAuthenticated, isAdminAuthenticated } = require('../middleware/authMid
 
 const router = express.Router();
 
-router.post('/', createAppointment);
+router.post('/', isAuthenticated, createAppointment);
 router.get('/mine', isAuthenticated, getMyAppointments);
 router.get('/', isAdminAuthenticated, getAllAppointments);
 router.get('/:id', isAdminAuthenticated, getAppointmentById);

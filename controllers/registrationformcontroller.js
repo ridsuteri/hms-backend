@@ -3,13 +3,15 @@ const RegistrationForm = require("../models/registrationformModel");
 const DoctorList = require("../models/doctorlistModel");
 
 function sanitizeAppointmentPayload(body = {}) {
+  const dateOfBirth = body.dateOfBirth ? new Date(body.dateOfBirth) : null;
+
   return {
     name: String(body.name || "").trim(),
     email: String(body.email || "")
       .trim()
       .toLowerCase(),
     phonenumber: String(body.phonenumber || "").trim(),
-    dateOfBirth: Date(body.dateOfBirth),
+    dateOfBirth,
     address: String(body.address || "").trim(),
     description: String(body.description || "").trim(),
     doctorId: String(body.doctorId || "").trim(),
@@ -20,7 +22,10 @@ const createAppointment = async (req, res) => {
   try {
     const payload = sanitizeAppointmentPayload(req.body);
 
-    if (Object.values(payload).some((value) => !value)) {
+    if (
+      Object.values(payload).some((value) => !value) ||
+      Number.isNaN(payload.dateOfBirth?.getTime?.())
+    ) {
       return res
         .status(400)
         .json({ error: "All appointment fields are required" });
@@ -39,7 +44,7 @@ const createAppointment = async (req, res) => {
       ...payload,
       doctorId: doctor._id,
       doctorName: doctor.name,
-      userId: req.body.userId || null,
+      userId: req.user.userId,
     });
     await newAppointment.save();
     res
@@ -124,7 +129,6 @@ module.exports = {
   createAppointment,
   getAllAppointments,
   getMyAppointments,
-  getAppointmentById,
   getAppointmentById,
   updateAppointment,
   deleteAppointment,
