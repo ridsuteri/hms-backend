@@ -1,5 +1,5 @@
+const client = require("../config/redis");
 const DoctorList = require("../models/doctorlistModel");
-
 function normalizeEmail(email) {
   return String(email || "")
     .trim()
@@ -91,8 +91,20 @@ const createDoctor = async (req, res) => {
 
 const getAllDoctors = async (req, res) => {
   try {
+    // try with redis first
+    const cache = await client.get('doctors:all');
+
+    if(cache){
+      console.log('cache exists, fetching data from cache', cache)
+      res.status(200).json({ data: JSON.parse(cache), source: 'cache' });
+      return;
+    }
+
     const doctors = await DoctorList.find();
-    res.status(200).json({ data: doctors });
+    console.log('cache miss, setting data to cache', doctors)
+    await client.set('doctors:all', JSON.stringify(doctors));
+
+    res.status(200).json({ data: doctors, source: 'db' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
