@@ -7,7 +7,7 @@ exports.isAuthenticated = async (req, res, next) => {
     req.user = decodeToken;
     next();
   } catch (err) {
-    console.log(error);
+    console.log(err);
     res.status(400).json({ message: "Invalid token" });
   }
 };
@@ -18,6 +18,7 @@ exports.isAdminAuthenticated = async (req, res, next) => {
     const decodeToken = await jwt.verify(token, process.env.JWT_SECRET);
     if (decodeToken.role != "admin") {
       res.status(400).json({ message: "Unauthorized" });
+      return;
     }
     req.user = decodeToken;
     next();
